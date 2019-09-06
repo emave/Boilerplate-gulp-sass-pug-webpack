@@ -1,0 +1,13 @@
+$colors: (brand: #000, white: #fff, brown: #181411, red: #E31E24, lightred: #FC4349, black: #000, dark: #1F1B18);
+
+$easing: cubic-bezier(.25, .1, .25, 1);
+
+:root {
+    @each $name, $color in $colors {
+        --color-#{$name}: #{$color};
+    }
+}
+
+@function color($color-name) {
+    @return var(--color-#{$color-name});
+}

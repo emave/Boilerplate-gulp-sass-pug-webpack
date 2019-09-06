@@ -1,0 +1,6 @@
+ProjectTitle: Start template
+
+PageList:
+- file: idnex.html
+  name: Main
+  ready: 0

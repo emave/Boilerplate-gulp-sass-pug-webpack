@@ -1,0 +1,580 @@
+.menu
+	position: absolute
+	left: 0
+	top: 0
+	width: 100%
+	pointer-events: none
+	z-index: 100
+	transform: none
+	will-change: scroll-position, transform
+	&.is-hidden
+		transform: translate3d(0, 0, 0) !important
+	&.reverse
+		background-color: #fff
+		height: 60px
+		position: fixed
+		top: -61px
+		transform: translate3d(0, 100%, 0)
+		transition: transform .3s $easing, height .3s $easing, background .3s $easing
+		.main-menu
+			padding-top: 0px
+			height: 60px
+			&-search
+				&-wrapper
+					height: 60px
+				&__input
+					color: color(brown)
+					&::placeholder
+						color: color(brown)
+				&__label
+					padding-top: 0
+				&__icon
+					color: color(brown)
+					vertical-align: top
+					margin-top: 8px
+					&-close
+						color: color(brown)
+						top: 13px
+			&__trig-icon
+				color: color(brown)
+			&-line
+				opacity: 0
+			&__line
+				background-color: color(brown)
+				height: 3px
+				top: 0px
+			&__href
+				padding-top: 20px
+				padding-bottom: 20px
+				height: 60px
+				vertical-align: top
+				&:hover
+					.main-menu__text
+						color: color(red)
+						opacity: 1
+			&__text
+				color: color(brown)
+				opacity: .7
+			&__sub
+				height: 60px
+				&-href
+					padding-top: 20px
+					padding-bottom: 20px
+					color: color(brown)
+					height: 60px
+					vertical-align: top
+					&--search
+						padding-top: 14px
+						padding-bottom: 14px
+					&:hover
+						.main-menu__text
+							color: color(red)
+					.main-menu__text
+						opacity: 1
+			&__sub-item
+				vertical-align: top
+			&__hidden
+				&-wrapper
+					top: 43px
+#app-menu
+	pointer-events: auto
+	color: #fff
+	width: 100%
+	max-width: 1520px
+	padding-left: 40px
+	padding-right: 40px
+	margin: auto
+	font-size: 0
+	transform: translateY(-20px)
+	text-align: left
+	opacity: 0
+	transition: opacity .6s $easing .3s, transform .6s $easing .3s, visibility 0s linear 0s
+	&.init
+		.main-menu__item
+			transition: none!important
+	&.active
+		opacity: 1
+		transform: none
+		visibility: visible
+		pointer-events: auto
+		.main-menu-line
+			transform: none
+			opacity: 1
+	&.search-active
+		.main-menu
+			opacity: 0
+			pointer-events: none
+			transform: translateY(-10px)
+			visibility: hidden
+			transition: opacity .4s $easing 0s, transform .4s $easing 0s, visibility 0s linear .4s
+		.main-menu-search-wrapper
+			opacity: 1
+			pointer-events: auto
+			transform: none
+			visibility: visible
+			transition: opacity .3s $easing .2s, transform .3s $easing .2s, visibility 0s linear 0s
+
+.main-menu
+	white-space: nowrap
+	padding-top: 100px
+	position: relative
+	transition: opacity .2s $easing, transform .2s $easing, visibility 0s linear 0s
+	opacity: 1
+	pointer-events: auto
+	visibility: visible
+	transform: none
+	p
+		margin: 0!important
+	&__item
+		display: inline-block
+		position: absolute
+		top: 0
+		left: 0
+		transition: transform .6s $easing .1s
+		&:first-child
+			.main-menu
+				&__href
+					padding-left: 0px
+				&__line
+					left: 0
+					transform: translateX(0px)
+		&:last-child
+			.main-menu
+				&__href
+					padding-right: 0px
+		&.active
+			.main-menu
+				&__sub
+					width: auto
+					visibility: visible
+					pointer-events: auto
+					transition: visibility 0s linear 0s, width 0s linear 0s
+					&-item
+						opacity: 1
+						transform: none
+						$timePlay: .5s
+						$timeDelay: .95
+						transition: opacity $timePlay $easing $timeDelay + s, transform $timePlay $easing $timeDelay + s
+						@for $i from 1 to 12
+							$timeDelay: $timeDelay + 0.05
+							&:nth-child(#{$i+1})
+								transition: opacity $timePlay $easing $timeDelay + s, transform $timePlay $easing $timeDelay + s
+				&__href
+					p
+						opacity: 1
+	&__line
+		display: block
+		position: absolute
+		left: 39px
+		bottom: 0
+		width: 0%
+		height: 1px
+		background-color: #fff
+		content: ''
+		transition: width .2s $easing .6s, max-width .2s $easing, transform .2s $easing
+		+r(1360)
+			left: 20px
+		+r(1280)
+			left: 10px
+	&__href
+		color: #fff
+		font-family: 'Futura New Cond'
+		font-size: 16px
+		text-transform: uppercase
+		letter-spacing: 1.45px
+		padding: 42px 39px
+		display: inline-block
+		cursor: pointer
+		+r(1360)
+			padding: 42px 20px
+		+r(1280)
+			padding: 42px 10px
+		p
+			color: #fff
+			font-size: 16px
+			opacity: .4
+			transition: opacity .2s $easing 0s, color .2s $easing
+			line-height: 1
+		&:hover
+			p
+				color: color(red)
+				opacity: 1
+		&.active
+			p
+				opacity: 1
+				transition: opacity .2s $easing .8s, color .2s $easing
+			.main-menu
+				&__line
+					width: 100%
+					transition: width .25s $easing .8s, max-width .2s $easing, transform .2s $easing
+					&.sub
+						transition: width .25s $easing 0s, max-width .2s $easing, transform .2s $easing
+	&__sub
+		display: inline-block
+		visibility: hidden
+		width: 0
+		pointer-events: none
+		transition: visibility 0s linear .3s, width 0s linear .3s, overflow 0s linear .3s
+		margin-left: -10px
+		&-item
+			display: inline-block
+			padding: 0 10px
+			opacity: 0
+			transform: scale(0.3)
+			transition: opacity .1s $easing 0s, transform .3s $easing 0s
+			+r(1280)
+				padding: 0 7px
+			&:first-child
+				padding-left: 0px
+				+r(1280)
+					padding-left: 20px
+			&:last-child
+				padding-right: 40px
+				+r(1280)
+					padding-right: 20px
+		&-href
+			color: #fff
+			font-family:  'Futura New Cond'
+			font-size: 16px
+			letter-spacing: 1.45px
+			text-transform: none
+			padding: 36px 0px
+			display: inline-block
+			cursor: pointer
+			transition: color .15s $easing
+			&:hover
+				color: color(red)
+			&--search
+				height: 30px
+				display: block
+				padding: 0px 10px
+				cursor: pointer
+				margin-left: 50px
+				transform: translateY(5px)
+				+r(1280)
+					margin-left: 20px
+			&--trigger
+				position: relative
+				cursor: pointer
+				padding-left: 8px
+				padding-right: 8px
+				margin-left: -6px
+				margin-right: 60px
+				+r(1280)
+					margin-right: 20px
+				&:hover
+					.main-menu
+						&__hidden
+							&-wrapper
+								opacity: 1
+								visibility: visible
+								transform: translate(-50%, 0)
+								pointer-events: auto
+								height: auto
+								transition: opacity .2s $easing .2s, transform .6s $easing, visibility 0s $easing 0s
+			p
+				font-size: 16px
+				line-height: 1
+	&-line
+		width: 100%
+		height: 1px
+		position: relative
+		top: -1px
+		background-color: rgba(255,255,255,0.4)
+		transform: scaleX(.4)
+		opacity: 0
+		display: inline-block
+		transition: transform .8s $easing .6s, opacity .8s $easing .6s
+		&__line
+			width: 50px
+			height:  1px
+			background-color: #fff
+			display: none
+	&__hidden
+		padding: 24px 20px
+		background-color: #fff
+		position: relative
+		width: 230px
+		margin-bottom: 0
+		cursor: default
+		&:after
+			display: block
+			content: ''
+			position: absolute
+			width: 20px
+			height: 20px
+			transform: rotate(45deg)
+			background-color: #fff
+			top: -8px
+			left: 0
+			right: 0
+			margin: auto
+		a
+			color: color(black)
+			line-height: 20px
+			letter-spacing: 1.45px
+			font-size: 16px
+			margin-bottom: 15px
+			white-space: normal
+			&:hover
+				color: color(red)
+		li
+			&:last-child
+				a
+					margin-bottom: 0
+		&-wrapper
+			position: absolute
+			display: block
+			left: 50%
+			top: 70px
+			transform: translate(-50%, 15px)
+			opacity: 0
+			visibility: hidden
+			cursor: default
+			height: 0
+			transition: opacity .2s $easing .3s, transform .2s $easing .3s, visibility 0s $easing .5s
+	&__trig-icon
+		height: 22px
+		color: #fff
+		transition: color .2s $easing
+		&:hover
+			color: color(red)
+		svg
+			width: 22px
+			height: 22px
+			fill: currentColor
+	&-design
+		position: absolute
+		top: 380px
+		left: 50%
+		transform: translate(-40%, 0px)
+		opacity: 0
+		pointer-events: none
+		visibility: hidden
+		transition: opacity .5s $easing 0s, transform .5s $easing 0s, visibility 0s linear .2s
+		font-size: 0
+		+r(1400)
+			top: 260px
+		&.active
+			opacity: 1
+			pointer-events: auto
+			visibility: visible
+			transform: translate(-40%, -20px)
+			transition: opacity 1.2s $easing 1s, transform 1.2s $easing 1s, visibility 0s linear 0s
+		&-wrapper
+			position: fixed
+			width: 100%
+			height: 100%
+			top: 0
+			left: 0
+			opacity: 1
+			pointer-events: none
+			transition: opacity 1.2s $easing
+			+gpu-plus
+			&+#barba-wrapper
+				&>.barba-container[data-href*=solutions]
+					background-color: color(dark)
+					padding-top: 50px
+					padding-bottom: 100px
+					position: relative!important
+			&.active
+				opacity: .1
+				transition: opacity .4s $easing
+				.main-menu-design
+					&__text
+						transition: opacity .5s $easing
+						opacity: 0!important
+		&__inner
+			white-space: nowrap
+			position: relative
+			width: 100%
+			height: 100%
+			transition: left .5s $easing
+			left: 10%
+			pointer-events: auto
+			&.transit
+				transition: transform .5s $easing, left .5s $easing
+				pointer-events: none
+			&.right
+				left: -48%
+				.main-menu-design__line
+					width: 400px
+					+r(1920)
+						width: 250px
+					+r(1400)
+						width: 130px
+					+r(1280)
+						width: 20px
+					+r(1100)
+						width: 0px
+		&__left, &__right, &__center
+			display: inline-block
+			white-space: normal
+			vertical-align: top
+			opacity: .2
+		&__center
+			padding: 130px 30px 0px
+		&__line
+			width: 600px
+			height: 1px
+			background-color: #fff
+			transition: width .2s $easing
+			//transform: translateX(-30px)
+			+r(1920)
+				width: 410px
+			+r(1400)
+				width: 300px
+			+r(1280)
+				width: 200px
+		&__left, &__right
+			color: #fff
+			transition: opacity .2s $easing
+			cursor: pointer
+			&:hover
+				color: #fff
+				opacity: 1
+			&.active
+				opacity: 1
+				cursor: default
+				.main-menu-design
+					&__text
+						opacity: 1
+						pointer-events: auto
+						visibility: visible
+						transform: none
+		&__left
+			text-align: right
+		&__header
+			font-size: 200px
+			letter-spacing: -5px
+			line-height: 200px
+			position: relative
+		&__text
+			font-size: 20px
+			text-align: justify
+			letter-spacing: 2.5px
+			line-height: 30px
+			max-width: 364px
+			margin-left: 250px
+			margin-top: 60px
+			opacity: 0
+			pointer-events: none
+			visibility: hidden
+			transition: opacity .8s $easing, transform .8s $easing
+
+.main-menu-search
+	position: relative
+	&-wrapper
+		opacity: 0
+		pointer-events: none
+		transform: translateY(10px)
+		visibility: hidden
+		transition: opacity .4s $easing, transform .4s $easing, visibility 0s linear .4s
+		height: 100px
+		position: absolute
+		top: 0
+		left: 0
+		right: 0
+		max-width: 1520px
+		padding-left: 40px
+		padding-right: 40px
+		margin: auto
+	&__label
+		white-space: nowrap
+		display: block
+		padding-top: 20px
+		text-align: center
+	&__input
+		display: inline-block
+		height: 60px
+		color: #fff
+		background: transparent
+		line-height: 46px
+		font-size: 36px
+		letter-spacing: 4.5px
+		text-align: center
+		font-weight: normal
+		padding: 0 0
+		width: 500px
+		font-family: 'Futura New'
+		+placeholder
+			opacity: .2
+			color: #fff
+	&__icon
+		display: inline-block
+		color: #fff
+		cursor: pointer
+		padding: 10px
+		transform: translateY(2px)
+		transition: color .2s $easing
+		&:hover
+			color: color(red)
+		svg
+			width: 22px
+			height: 22px
+			fill: currentColor
+		&-close
+			color: #fff
+			opacity: .4
+			transition: opacity .2s $easing
+			position: absolute
+			right: -10px
+			top: 36px
+			padding: 10px
+			cursor: pointer
+			&:hover
+				opacity: 1
+			svg
+				fill: currentColor
+				width: 16px
+				height: 17px
+.allprojects
+	position: fixed
+	width: 100px
+	height: 100vh
+	left: 0
+	top: 0
+	cursor: pointer
+	opacity: 0
+	visibility: hidden
+	transform: translateX(-20px)
+	transition: opacity .5s $easing, transform .5s $easing, visibility 0s linear .5s
+	will-change: transform
+	z-index: 3
+	&.active
+		opacity: 1
+		visibility: visible
+		transform: none
+		transition: opacity .5s $easing, transform .5s $easing, visibility 0s linear 0s
+	p
+		position: absolute
+		top: 50%
+		left: 0
+		right: 0
+		text-transform: uppercase
+		font-weight: medium
+		font-family: 'Futura New Cond'
+		text-align: center
+		letter-spacing: 1.45px
+		line-height: 16px
+		font-size: 16px
+		transform: rotate(-90deg)
+	&-wrapper
+		div
+			background-position: 50% 50%
+			background-size: cover
+			background-repeat: no-repeat
+			width: 0px
+			height: 100vh
+			position: fixed
+			left: 0px
+			top: 0px
+			z-index: 2
+			transition: width .6s $easing
+			will-change: transform
+			&.transit
+				transition: width 1.2s $easing
+	&:hover
+		&+.allprojects-wrapper
+			div
+				width: 100px
